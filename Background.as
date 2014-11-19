@@ -26,6 +26,7 @@ package
 		
 		var myDoor:Door = new Door();
 		
+		
 		public function Background()
 		{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler); // Tarkistaa painetaanko näppäintä parhaillaan
@@ -42,29 +43,19 @@ package
 		function loop(e:Event):void
 		{
 			if(leftPressed) // jos vasen näppäin on pohjassa...
-			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
-			}
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
-			{
 				xSpeed += speedConstant; //... nin tausta liikkuu toiseen suuntan :)
-			}
 			
 			
 			if(leftBumping == true)
-			{
 				if(xSpeed < 0)
-				{
 					xSpeed *= -0.5;
-				}
-			}			
+		
 			if(rightBumping == true)
-			{
 				if(xSpeed > 0)
-				{
 					xSpeed *= -0.5;
-				}
-			}
+			
 			
 			if(player.hitTestPoint(this.x + player.getLeftBumpPoint().x, this.y + player.getLeftBumpPoint().y, true))
 			{
@@ -91,30 +82,39 @@ package
 			
 			if(Math.abs(xSpeed) < 0.5)
 				xSpeed = 0;
+			
+			// Tämä määrittää rajat jossa pelaaja voi liikkua (näille kannattaa tehdä variaabelit)
+			if(scrollX > 144)
+				scrollX = 144; // vasen "seinä"
+			else if (scrollX < -1113)
+				scrollX = -1113; // oikea "seinä"
 		}
 		
 		function keyDownHandler(e:KeyboardEvent):void
 		{
 			if(e.keyCode == Keyboard.LEFT || e.keyCode == Keyboard.A)
-			{
 				leftPressed = true;
-			}
 			if(e.keyCode == Keyboard.RIGHT || e.keyCode == Keyboard.D)
-			{
 				rightPressed = true;
-			}
 		}
 		
 		function keyUpHandler(e:KeyboardEvent):void
 		{
 			if(e.keyCode == Keyboard.LEFT || e.keyCode == Keyboard.A)
-			{
 				leftPressed = false;
-			}
 			if(e.keyCode == Keyboard.RIGHT || e.keyCode == Keyboard.D)
-			{
 				rightPressed = false;
-			}
+		}
+		
+		
+		public function getLeftPressed():Boolean
+		{
+			return leftPressed;
+		}
+		
+		public function getRightPressed():Boolean
+		{
+			return rightPressed;
 		}
 		
 	}
