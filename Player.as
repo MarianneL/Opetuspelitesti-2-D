@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.geom.Point;
 	
 	public class Player extends MovieClip
@@ -17,17 +18,19 @@ package
 			
 		public function Player()
 		{
+			//addEventListener(Event.ADDED_TO_STAGE, init); tällä voi tehä jotain kivaa ???
+			
 			/*
 			// Jos oikea näppäin on pohjassa...
-			if(bg.rightPressed)
+			if(bg.getRightPressed())
 			// animaatioksi vaihtuu oikealle kävelevä ukkeli
-			animationState = "walkingRight";
+			animationState = "walk";
 			// Jos vasen näppäin on pohjassa...
-			else if(bg.leftPressed)
+			else if(bg.getLeftPressed())
 			// animaatioksi vaihtuu vasemmalle kävelevä ukkeli
-			animationState = "walkingLeft";
+			animationState = "walk";
 			// Jos kumpikaan näppäin ei ole pohjassa... (! = not, eli "not rightPressed")
-			else if(!bg.rightPressed && !bg.leftPressed)
+			else if(!bg.getRightPressed() && !bg.getLeftPressed())
 			//...animaationa on idle
 			animationState = "idle";
 			

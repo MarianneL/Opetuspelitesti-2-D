@@ -8,6 +8,8 @@ package
 	
 	public class Background extends MovieClip
 	{
+		var currentLevel:int = 1;
+		
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
 				
@@ -20,7 +22,7 @@ package
 		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
 		var rightBumping:Boolean = false;
 		
-		var player:Player = new Player();
+		var player:Player = new Player;
 		//var playerLeftBumping = player.getLeftBumping();
 		//var playerRightBumping = player.getRightBumping();
 		
@@ -38,15 +40,29 @@ package
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
 			myDoor.x = 538;
 			myDoor.y = 374;
+			
+			//addPlayer();
 		}
+		
+		/*private function addPlayer():void
+		{
+			addChild(player);
+			player.x = 186;
+			player.y = 400;
+		}*/
 		
 		function loop(e:Event):void
 		{
 			if(leftPressed) // jos vasen näppäin on pohjassa...
+			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
+				player.x -= 10;
+			}
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
-				xSpeed += speedConstant; //... nin tausta liikkuu toiseen suuntan :)
-			
+			{
+				xSpeed += speedConstant; //... niin tausta liikkuu toiseen suuntan :)
+				player.x += 10;
+			}
 			
 			if(leftBumping == true)
 				if(xSpeed < 0)
@@ -115,6 +131,18 @@ package
 		public function getRightPressed():Boolean
 		{
 			return rightPressed;
+		}
+		
+		public function nextLevel()
+		{
+			currentLevel++;
+			if(currentLevel == 2)
+				gotoLevel2();
+		}
+		
+		function gotoLevel2():void
+		{
+			this.gotoAndStop(2);
 		}
 		
 	}

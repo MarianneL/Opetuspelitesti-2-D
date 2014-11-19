@@ -6,6 +6,10 @@ package
 	
 	public class Door extends MovieClip
 	{		
+		var doorOpen:Boolean = false;
+		
+		var bg:Background;
+		
 		public function Door()
 		{
 			addEventListener(MouseEvent.CLICK, clickMyDoor);
@@ -26,7 +30,9 @@ package
 		
 		public function clickMyDoor(e:Event = null):void
 		{
-			
+			this.gotoAndStop("open");
+			doorOpen = true;
+			bg.nextLevel();
 		}
 	}
 }
