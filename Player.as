@@ -10,34 +10,25 @@ package
 		var leftBumpPoint:Point = new Point(-35, -45);
 		var rightBumpPoint:Point = new Point(35, -45)
 			
-		var background:Background = new Background();
+		var bg:Background;
+		//var bgLeftPressed = bg.getLeftPressed();
+		//var bgRightPressed = bg.getRightPressed();
 			
 		public function Player()
 		{
-			if(background.hitTestPoint(this.x + leftBumpPoint.x, this.y + leftBumpPoint.y, true))
-			{
-				leftBumping = true
-			} else {
-				leftBumping = false;
-			}
 			
-			if(background.hitTestPoint(this.x + rightBumpPoint.x, this.y + rightBumpPoint.y, true))
-			{
-				rightBumping = true
-			} else {
-				rightBumping = false;
-			}
 		}
 		
-		
-		public function getLeftBumping():Boolean
+		public function getLeftBumpPoint():Point
 		{
-			return this.leftBumping;
+			return leftBumpPoint;
 		}
 		
-		public function getRightBumping():Boolean
+		public function getRightBumpPoint():Point
 		{
-			return this.rightBumping;
+			return rightBumpPoint;
 		}
+		
+		
 	}
 }

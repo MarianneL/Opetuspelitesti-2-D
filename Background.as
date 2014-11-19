@@ -15,10 +15,16 @@ package
 		var scrollX:int = 0;
 		var speedConstant:int = 2;
 		var friction:Number = 0.95;
+		var maxSpeedConstant:Number = 10;
+		
+		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
+		var rightBumping:Boolean = false;
 		
 		var player:Player = new Player();
-		var playerLeftBumping = player.getLeftBumping();
-		var playerRightBumping = player.getRightBumping();
+		//var playerLeftBumping = player.getLeftBumping();
+		//var playerRightBumping = player.getRightBumping();
+		
+		var myDoor:Door = new Door();
 		
 		public function Background()
 		{
@@ -26,25 +32,33 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäin on "ylhäällä"
 			
 			stage.addEventListener(Event.ENTER_FRAME, loop); // Toistetaan joka fps
-			// ^ Näiden kolmen functiot alempana
+			// ^ Näiden kolmen funktiot alempana
+						
+			addChild(myDoor); // Lisätään ovi omalle paikalleen
+			myDoor.x = 538;
+			myDoor.y = 374;
 		}
 		
 		function loop(e:Event):void
 		{
 			if(leftPressed) // jos vasen näppäin on pohjassa...
+			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
+			}
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
+			{
 				xSpeed += speedConstant; //... nin tausta liikkuu toiseen suuntan :)
+			}
 			
-			if(playerLeftBumping == true)
+			
+			if(leftBumping == true)
 			{
 				if(xSpeed < 0)
 				{
 					xSpeed *= -0.5;
 				}
-			}
-			
-			if(playerRightBumping == true)
+			}			
+			if(rightBumping == true)
 			{
 				if(xSpeed > 0)
 				{
@@ -52,9 +66,31 @@ package
 				}
 			}
 			
+			if(player.hitTestPoint(this.x + player.getLeftBumpPoint().x, this.y + player.getLeftBumpPoint().y, true))
+			{
+				leftBumping = true
+			} else {
+				leftBumping = false;
+			}
+			
+			if(player.hitTestPoint(this.x + player.getRightBumpPoint().x, this.y + player.getRightBumpPoint().y, true))
+			{
+				rightBumping = true
+			} else {
+				rightBumping = false;
+			}
+			
+			if(xSpeed > maxSpeedConstant) // Liikutaan oikealle
+				xSpeed = maxSpeedConstant;
+			else if(xSpeed < (maxSpeedConstant * -1)) // Liikutaan vasemmalle
+				xSpeed = (maxSpeedConstant * -1)
+			
 			xSpeed *= friction;
 			scrollX -= xSpeed;
 			this.x = scrollX;
+			
+			if(Math.abs(xSpeed) < 0.5)
+				xSpeed = 0;
 		}
 		
 		function keyDownHandler(e:KeyboardEvent):void
