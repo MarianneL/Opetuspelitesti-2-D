@@ -8,13 +8,14 @@ package
 	
 	public class Background extends MovieClip
 	{
-		var currentLevel:int = 1;
+		static var currentLevel:int = 1;
 		
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
 				
 		var xSpeed:int = 4; // Nopeus jolla tausta liikkuu
 		var scrollX:int = 0;
+		var scrollXPlayer:int = 0;
 		var speedConstant:int = 2;
 		var friction:Number = 0.95;
 		var maxSpeedConstant:Number = 10;
@@ -41,30 +42,24 @@ package
 			myDoor.x = 538;
 			myDoor.y = 374;
 			
-			//addPlayer();
-		}
-		
-		/*private function addPlayer():void
-		{
 			addChild(player);
-			player.x = 186;
-			player.y = 400;
-		}*/
+		}
+
 		
 		function loop(e:Event):void
 		{
 			if(leftPressed) // jos vasen näppäin on pohjassa...
 			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
-				player.x -= 10;
+				//player.x -= 10;
 			}
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
 			{
 				xSpeed += speedConstant; //... niin tausta liikkuu toiseen suuntan :)
-				player.x += 10;
+				//player.x += 10;
 			}
 			
-			if(leftBumping == true)
+		/*	if(leftBumping == true)
 				if(xSpeed < 0)
 					xSpeed *= -0.5;
 		
@@ -86,6 +81,7 @@ package
 			} else {
 				rightBumping = false;
 			}
+			*/
 			
 			if(xSpeed > maxSpeedConstant) // Liikutaan oikealle
 				xSpeed = maxSpeedConstant;
@@ -94,16 +90,24 @@ package
 			
 			xSpeed *= friction;
 			scrollX -= xSpeed;
+			scrollXPlayer += xSpeed;
 			this.x = scrollX;
+			player.x = scrollXPlayer;
 			
 			if(Math.abs(xSpeed) < 0.5)
 				xSpeed = 0;
 			
-			// Tämä määrittää rajat jossa pelaaja voi liikkua (näille kannattaa tehdä variaabelit)
-			if(scrollX > 144)
-				scrollX = 144; // vasen "seinä"
-			else if (scrollX < -1113)
-				scrollX = -1113; // oikea "seinä"
+			// Tämä määrittää rajat jossa pelaaja voi liikkua (näille kannattais tehdä variaabelit)
+			if(scrollXPlayer < 44)
+				scrollXPlayer = 44; // vasen "seinä"
+			else if (scrollXPlayer > 1291)
+				scrollXPlayer = 1291; // oikea "seinä"
+			// Määrittää rajat joissa tausta liikkuu
+			if(scrollX > 150)
+				scrollX = 150;
+			else if (scrollX < -1000)
+				scrollX = -1000;
+			
 		}
 		
 		function keyDownHandler(e:KeyboardEvent):void
