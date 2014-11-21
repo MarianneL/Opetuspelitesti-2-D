@@ -4,6 +4,7 @@ package
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	
@@ -25,11 +26,8 @@ package
 		var rightBumping:Boolean = false;
 		
 		var player:Player = new Player(stage, 186, 420);
-		//var playerLeftBumping = player.getLeftBumping();
-		//var playerRightBumping = player.getRightBumping();
-		
-		var myDoor:Door = new Door(stage);
-		
+		var myDoor:Door = new Door(stage, 538, 374);
+
 		
 		public function Background()
 		{	
@@ -40,10 +38,9 @@ package
 			// ^ Näiden kolmen funktiot alempana
 						
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
+			myDoor.addEventListener(MouseEvent.CLICK, nextLevel);
 			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
 			// GUI systeemi, ehkä?
-			myDoor.x = 538;
-			myDoor.y = 374;
 			
 			addChild(player); // Lisätään pelaaja näytölle
 		}
@@ -61,30 +58,6 @@ package
 				xSpeed += speedConstant; //... niin tausta liikkuu toiseen suuntan :)
 				//player.x += 10;
 			}
-			
-		/*	if(leftBumping == true)
-				if(xSpeed < 0)
-					xSpeed *= -0.5;
-		
-			if(rightBumping == true)
-				if(xSpeed > 0)
-					xSpeed *= -0.5;
-			
-			
-			if(player.hitTestPoint(this.x + player.getLeftBumpPoint().x, this.y + player.getLeftBumpPoint().y, true))
-			{
-				leftBumping = true
-			} else {
-				leftBumping = false;
-			}
-			
-			if(player.hitTestPoint(this.x + player.getRightBumpPoint().x, this.y + player.getRightBumpPoint().y, true))
-			{
-				rightBumping = true
-			} else {
-				rightBumping = false;
-			}
-			*/
 			
 			if(xSpeed > maxSpeedConstant) // Liikutaan oikealle
 				xSpeed = maxSpeedConstant;
@@ -129,18 +102,7 @@ package
 				rightPressed = false;
 		}
 		
-		
-		public function getLeftPressed():Boolean
-		{
-			return leftPressed;
-		}
-		
-		public function getRightPressed():Boolean
-		{
-			return rightPressed;
-		}
-		
-		public function nextLevel()
+		public function nextLevel(e:MouseEvent)
 		{
 			currentLevel++;
 			if(currentLevel == 2)

@@ -14,9 +14,11 @@ package
 		
 		var stageRef:Stage;
 		
-		public function Door(stageRef:Stage)
+		public function Door(stageRef:Stage, X:int, Y:int)
 		{
 			this.stageRef = stageRef;
+			this.x = X;
+			this.y = Y;
 			
 			addEventListener(MouseEvent.CLICK, clickMyDoor);
 			addEventListener(MouseEvent.MOUSE_OVER, rollOverMyDoor);
@@ -38,7 +40,7 @@ package
 		{
 			this.gotoAndStop("open");
 			doorOpen = true;
-			bg.nextLevel();
+			//bg.nextLevel();
 		}
 	}
 }

@@ -10,13 +10,13 @@ package
 	
 	public class Player extends MovieClip
 	{
-		static var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
-		static var rightBumping:Boolean = false;
-		static  var leftBumpPoint:Point = new Point(-35, -45);
-		static var rightBumpPoint:Point = new Point(35, -45)
+		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
+		var rightBumping:Boolean = false;
+		 var leftBumpPoint:Point = new Point(-35, -45);
+		var rightBumpPoint:Point = new Point(35, -45)
 			
-		static var leftPressed:Boolean = false;
-		static var rightPressed:Boolean = false;
+		var leftPressed:Boolean = false;
+		var rightPressed:Boolean = false;
 		
 		var speed:Number = 5;
 		
