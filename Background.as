@@ -9,7 +9,7 @@ package
 	
 	public class Background extends MovieClip
 	{
-		static var currentLevel:int = 1;
+		var currentLevel:int = 1;
 		
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
@@ -24,7 +24,7 @@ package
 		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
 		var rightBumping:Boolean = false;
 		
-		var player:Player = new Player(stage);
+		var player:Player = new Player(stage, 186, 420);
 		//var playerLeftBumping = player.getLeftBumping();
 		//var playerRightBumping = player.getRightBumping();
 		
