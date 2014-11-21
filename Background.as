@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -23,15 +24,15 @@ package
 		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
 		var rightBumping:Boolean = false;
 		
-		var player:Player = new Player;
+		var player:Player = new Player(stage);
 		//var playerLeftBumping = player.getLeftBumping();
 		//var playerRightBumping = player.getRightBumping();
 		
-		var myDoor:Door = new Door();
+		var myDoor:Door = new Door(stage);
 		
 		
 		public function Background()
-		{
+		{	
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler); // Tarkistaa painetaanko näppäintä parhaillaan
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäin on "ylhäällä"
 			
@@ -39,10 +40,12 @@ package
 			// ^ Näiden kolmen funktiot alempana
 						
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
+			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
+			// GUI systeemi, ehkä?
 			myDoor.x = 538;
 			myDoor.y = 374;
 			
-			addChild(player);
+			addChild(player); // Lisätään pelaaja näytölle
 		}
 
 		

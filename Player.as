@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -18,13 +19,16 @@ package
 		
 		var bg:Background;
 		
+		var stageRef:Stage;
+		
 		// määrittää sen mikä animaatio ukkelilla pyörii
 		//var animationState:String = "idle";
 			
-		public function Player()
+		public function Player(stageRef:Stage)
 		{
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			this.stageRef = stageRef;
 			
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			/*// Jos oikea näppäin on pohjassa...
 			if(rightPressed)
@@ -51,7 +55,7 @@ package
 		public function onAddedToStage(e:Event):void
 		{
 			x = 186;
-			y = 400;
+			y = 420;
 		}
 		
 		

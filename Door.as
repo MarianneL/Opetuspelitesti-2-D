@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
@@ -11,8 +12,12 @@ package
 		var bg:Background;
 		var player:Player;
 		
-		public function Door()
+		var stageRef:Stage;
+		
+		public function Door(stageRef:Stage)
 		{
+			this.stageRef = stageRef;
+			
 			addEventListener(MouseEvent.CLICK, clickMyDoor);
 			addEventListener(MouseEvent.MOUSE_OVER, rollOverMyDoor);
 			addEventListener(MouseEvent.MOUSE_OUT, rollOutMyDoor);
