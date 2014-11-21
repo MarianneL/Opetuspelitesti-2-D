@@ -38,7 +38,9 @@ package
 			// ^ Näiden kolmen funktiot alempana
 						
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
+			// http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
 			myDoor.addEventListener(MouseEvent.CLICK, nextLevel);
+			
 			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
 			// GUI systeemi, ehkä?
 			
