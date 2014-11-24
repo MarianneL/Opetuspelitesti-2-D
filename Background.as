@@ -27,20 +27,21 @@ package
 		
 		var player:Player = new Player(stage, 186, 420);
 		var myDoor:Door = new Door(stage, 538, 374);
+		var myDoor2:Door = new Door(stage, 860, 374);
 
+		//var fadeNumber:Number = 0;
 		
 		public function Background()
-		{	
+		{				
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler); // Tarkistaa painetaanko näppäintä parhaillaan
-			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäin on "ylhäällä"
-			
+			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäintä ei parhaillaan paineta		
 			stage.addEventListener(Event.ENTER_FRAME, loop); // Toistetaan joka fps
 			// ^ Näiden kolmen funktiot alempana
 						
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
-			// http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
-			myDoor.addEventListener(MouseEvent.CLICK, nextLevel);
-			
+			addChild(myDoor2);
+			myDoor.addEventListener(MouseEvent.CLICK, door1GoTo); // http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
+			myDoor2.addEventListener(MouseEvent.CLICK, door2GoTo);
 			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
 			// GUI systeemi, ehkä?
 			
@@ -50,6 +51,8 @@ package
 		
 		function loop(e:Event):void
 		{
+			//this.alpha = this.alpha + (fadeNumber - this.alpha) / 7;
+			
 			if(leftPressed) // jos vasen näppäin on pohjassa...
 			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
@@ -78,13 +81,13 @@ package
 			// Tämä määrittää rajat jossa pelaaja voi liikkua (näille kannattais tehdä variaabelit)
 			if(scrollXPlayer < 44)
 				scrollXPlayer = 44; // vasen "seinä"
-			else if (scrollXPlayer > 1291)
-				scrollXPlayer = 1291; // oikea "seinä"
+			else if (scrollXPlayer > 1500)
+				scrollXPlayer = 1500; // oikea "seinä"
 			// Määrittää rajat joissa tausta liikkuu
-			if(scrollX > 150)
-				scrollX = 150;
-			else if (scrollX < -1000)
-				scrollX = -1000;
+			if(scrollX > -10)
+				scrollX = -10;
+			else if (scrollX < -875)
+				scrollX = -875;
 			
 		}
 		
@@ -104,17 +107,48 @@ package
 				rightPressed = false;
 		}
 		
-		public function nextLevel(e:MouseEvent)
+		
+		public function door1GoTo(e:MouseEvent)
 		{
-			currentLevel++;
-			if(currentLevel == 2)
-				gotoLevel2();
+			nextLevel(2);
+			myDoor.visible = false;
+		}
+		public function door2GoTo(e:MouseEvent)
+		{
+			nextLevel(3);
+		}
+		
+		public function nextLevel(currentLevel)
+		{
+			switch(currentLevel)
+			{
+				case 2:
+				{
+					gotoLevel2();
+					break;
+				}
+				case 3:
+				{
+					gotoLevel3();
+					break;
+				}	
+				default:
+				{
+					break;
+				}
+			}
 		}
 		
 		function gotoLevel2():void
 		{
 			this.gotoAndStop(2);
 		}
+		
+		function gotoLevel3():void
+		{
+			this.gotoAndStop(3);
+		}
+
 		
 	}
 }

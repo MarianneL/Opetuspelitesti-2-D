@@ -10,10 +10,10 @@ package
 	
 	public class Player extends MovieClip
 	{
-		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
+		/*var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
 		var rightBumping:Boolean = false;
 		 var leftBumpPoint:Point = new Point(-35, -45);
-		var rightBumpPoint:Point = new Point(35, -45)
+		var rightBumpPoint:Point = new Point(35, -45)*/
 			
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
@@ -84,7 +84,7 @@ package
 			}
 		}
 		
-		public function getLeftBumpPoint():Point
+		/*public function getLeftBumpPoint():Point
 		{
 			return leftBumpPoint;
 		}
@@ -92,7 +92,7 @@ package
 		public function getRightBumpPoint():Point
 		{
 			return rightBumpPoint;
-		}
+		}*/
 		
 		
 	}
