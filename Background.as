@@ -15,7 +15,7 @@ package
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
 				
-		var xSpeed:int = 4; // Nopeus jolla tausta liikkuu
+		var xSpeed:int = 4;
 		var scrollX:int = 0;
 		var scrollXPlayer:int = 0;
 		var speedConstant:int = 2;
@@ -26,43 +26,31 @@ package
 		var rightBumping:Boolean = false;
 		
 		var player:Player = new Player(stage, 186, 420);
-		var myDoor:Door = new Door(stage, 538, 374);
-		var myDoor2:Door = new Door(stage, 860, 374);
+		var myDoor:Door = new Door(stage, 1440, 258);	// Ovien nimet vois olla selkeemmät... eim. kaupanOvi, keittiönOvi jne
+		var myDoor2:Door = new Door(stage, 2493, 294);
 
-		//var fadeNumber:Number = 0;
-		
 		public function Background()
 		{				
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler); // Tarkistaa painetaanko näppäintä parhaillaan
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäintä ei parhaillaan paineta		
 			stage.addEventListener(Event.ENTER_FRAME, loop); // Toistetaan joka fps
-			// ^ Näiden kolmen funktiot alempana
-						
-			addChild(myDoor); // Lisätään ovi omalle paikalleen
-			addChild(myDoor2);
-			myDoor.addEventListener(MouseEvent.CLICK, door1GoTo); // http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
-			myDoor2.addEventListener(MouseEvent.CLICK, door2GoTo);
+		
+			myDoor.addEventListener(MouseEvent.CLICK, door1GoTo); 	// http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
+			myDoor2.addEventListener(MouseEvent.CLICK, door2GoTo);	// Kun ovea klikataan, siirrytään uuteen tasoon, jonka doorGoTo funktio määrittää
 			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
 			// GUI systeemi, ehkä?
 			
+			addChild(myDoor); // Lisätään ovi omalle paikalleen
 			addChild(player); // Lisätään pelaaja näytölle
 		}
 
 		
 		function loop(e:Event):void
-		{
-			//this.alpha = this.alpha + (fadeNumber - this.alpha) / 7;
-			
+		{		
 			if(leftPressed) // jos vasen näppäin on pohjassa...
-			{
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
-				//player.x -= 10;
-			}
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
-			{
 				xSpeed += speedConstant; //... niin tausta liikkuu toiseen suuntan :)
-				//player.x += 10;
-			}
 			
 			if(xSpeed > maxSpeedConstant) // Liikutaan oikealle
 				xSpeed = maxSpeedConstant;
@@ -78,7 +66,7 @@ package
 			if(Math.abs(xSpeed) < 0.5)
 				xSpeed = 0;
 			
-			// Tämä määrittää rajat jossa pelaaja voi liikkua (näille kannattais tehdä variaabelit)
+			// Tämä määrittää rajat jossa pelaaja voi liikkua
 			if(scrollXPlayer < 44)
 				scrollXPlayer = 44; // vasen "seinä"
 			else if (scrollXPlayer > 1500)
@@ -88,10 +76,11 @@ package
 				scrollX = -10;
 			else if (scrollX < -875)
 				scrollX = -875;
+			// ^ Rajat vaihtelee "tasosta" riippuen, ne pitäisi siis laittaa johonkin muualle ku tähän :D
 			
 		}
 		
-		function keyDownHandler(e:KeyboardEvent):void
+		function keyDownHandler(e:KeyboardEvent):void 	// Tarkistaa painetaanko näppäintä parhaillaan
 		{
 			if(e.keyCode == Keyboard.LEFT || e.keyCode == Keyboard.A)
 				leftPressed = true;
@@ -99,7 +88,7 @@ package
 				rightPressed = true;
 		}
 		
-		function keyUpHandler(e:KeyboardEvent):void
+		function keyUpHandler(e:KeyboardEvent):void 	// Tarkistaa että näppäintä ei parhaillaan paineta		
 		{
 			if(e.keyCode == Keyboard.LEFT || e.keyCode == Keyboard.A)
 				leftPressed = false;
@@ -108,15 +97,15 @@ package
 		}
 		
 		
-		public function door1GoTo(e:MouseEvent)
+		public function door1GoTo(e:MouseEvent)	// Ovesta 1 mennään Background movieclipin kakkos framelle
 		{
 			nextLevel(2);
-			myDoor.visible = false;
 		}
 		public function door2GoTo(e:MouseEvent)
 		{
 			nextLevel(3);
 		}
+		
 		
 		public function nextLevel(currentLevel)
 		{
@@ -124,12 +113,19 @@ package
 			{
 				case 2:
 				{
-					gotoLevel2();
+					this.gotoAndStop(2);
+					addChild(myDoor2);
+					removeChild(myDoor);
+					scrollXPlayer = 250;
+					scrollX = 100;
 					break;
 				}
 				case 3:
 				{
-					gotoLevel3();
+					this.gotoAndStop(3);
+					removeChild(myDoor2);
+					scrollXPlayer = 200;
+					scrollX = 0;
 					break;
 				}	
 				default:
@@ -138,17 +134,6 @@ package
 				}
 			}
 		}
-		
-		function gotoLevel2():void
-		{
-			this.gotoAndStop(2);
-		}
-		
-		function gotoLevel3():void
-		{
-			this.gotoAndStop(3);
-		}
-
 		
 	}
 }

@@ -7,8 +7,6 @@ package
 	
 	public class Door extends MovieClip
 	{		
-		static var doorOpen:Boolean = false;
-		
 		var bg:Background;
 		var player:Player;
 		
@@ -39,8 +37,6 @@ package
 		public function clickMyDoor(e:Event):void
 		{
 			this.gotoAndStop("open");
-			doorOpen = true;
-			//bg.nextLevel();
 		}
 	}
 }
