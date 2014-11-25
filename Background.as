@@ -15,38 +15,40 @@ package
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
 				
-		var xSpeed:int = 4;
+		var xSpeed:int = 10 //4;
 		var scrollX:int = 0;
 		var scrollXPlayer:int = 0;
-		var speedConstant:int = 2;
+		var speedConstant:int = 10 //5;
 		var friction:Number = 0.95;
-		var maxSpeedConstant:Number = 10;
-		
-		var leftBumping:Boolean = false; // Määrittelee osuuko pelaajan vasen "kylki" johonkin
-		var rightBumping:Boolean = false;
+		var maxSpeedConstant:Number = 20 //10;
 		
 		var player:Player = new Player(stage, 186, 420);
-		var myDoor:Door = new Door(stage, 1440, 258);	// Ovien nimet vois olla selkeemmät... eim. kaupanOvi, keittiönOvi jne
-		var myDoor2:Door = new Door(stage, 2493, 294);
+		var myDoor:Door = new Door(/*stage, 1440, 258*/);	// Ovien nimet vois olla selkeemmät... eim. kaupanOvi, keittiönOvi jne
+		var myDoor2:Door = new Door(/*stage, 2493, 294*/);
 
+		
 		public function Background()
 		{				
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler); // Tarkistaa painetaanko näppäintä parhaillaan
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler); // Tarkistaa että näppäintä ei parhaillaan paineta		
 			stage.addEventListener(Event.ENTER_FRAME, loop); // Toistetaan joka fps
-		
+
 			myDoor.addEventListener(MouseEvent.CLICK, door1GoTo); 	// http://www.kirupa.com/forum/showthread.php?344758-how-do-i-access-a-function-in-the-main-class-from-another-class
 			myDoor2.addEventListener(MouseEvent.CLICK, door2GoTo);	// Kun ovea klikataan, siirrytään uuteen tasoon, jonka doorGoTo funktio määrittää
 			// Kun laitoin stage.addChild, niin tää pysy koko ajan samas kohtaa...
 			// GUI systeemi, ehkä?
 			
 			addChild(myDoor); // Lisätään ovi omalle paikalleen
+			myDoor.x = 1440;
+			myDoor.y = 258;
 			addChild(player); // Lisätään pelaaja näytölle
 		}
 
 		
 		function loop(e:Event):void
-		{		
+		{	
+			checkBounds();
+			
 			if(leftPressed) // jos vasen näppäin on pohjassa...
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
@@ -64,21 +66,9 @@ package
 			player.x = scrollXPlayer;
 			
 			if(Math.abs(xSpeed) < 0.5)
-				xSpeed = 0;
-			
-			// Tämä määrittää rajat jossa pelaaja voi liikkua
-			if(scrollXPlayer < 44)
-				scrollXPlayer = 44; // vasen "seinä"
-			else if (scrollXPlayer > 1500)
-				scrollXPlayer = 1500; // oikea "seinä"
-			// Määrittää rajat joissa tausta liikkuu
-			if(scrollX > -10)
-				scrollX = -10;
-			else if (scrollX < -875)
-				scrollX = -875;
-			// ^ Rajat vaihtelee "tasosta" riippuen, ne pitäisi siis laittaa johonkin muualle ku tähän :D
-			
+				xSpeed = 0;		
 		}
+
 		
 		function keyDownHandler(e:KeyboardEvent):void 	// Tarkistaa painetaanko näppäintä parhaillaan
 		{
@@ -97,26 +87,29 @@ package
 		}
 		
 		
-		public function door1GoTo(e:MouseEvent)	// Ovesta 1 mennään Background movieclipin kakkos framelle
+		public function door1GoTo(e:MouseEvent):void	// Ovesta 1 mennään Background movieclipin kakkos framelle, eli kakkos "kenttään"
 		{
 			nextLevel(2);
 		}
-		public function door2GoTo(e:MouseEvent)
+		public function door2GoTo(e:MouseEvent):void
 		{
 			nextLevel(3);
 		}
 		
 		
-		public function nextLevel(currentLevel)
+		public function nextLevel(currentLevel):void
 		{
 			switch(currentLevel)
 			{
 				case 2:
 				{
 					this.gotoAndStop(2);
+					checkBounds();
 					addChild(myDoor2);
+					myDoor2.x = 2493;
+					myDoor2.y = 294;
 					removeChild(myDoor);
-					scrollXPlayer = 250;
+					scrollXPlayer = 368;
 					scrollX = 100;
 					break;
 				}
@@ -134,6 +127,47 @@ package
 				}
 			}
 		}
+		
+		
+		public function checkBounds():void
+		{
+			switch(currentLevel)
+			{
+				case 1:
+				{
+					// Tämä määrittää rajat jossa pelaaja voi liikkua
+					if(scrollXPlayer < 40)
+						scrollXPlayer = 40; // vasen "seinä"
+					if (scrollXPlayer > 1500)
+						scrollXPlayer = 1500; // oikea "seinä"
+					// Määrittää rajat joissa tausta liikkuu
+					if(scrollX > -15)
+						scrollX = -15;
+					if (scrollX < -875)
+						scrollX = -875;	
+					break;
+				}
+				case 2:
+				{
+					// Tämä määrittää rajat jossa pelaaja voi liikkua
+					if(scrollXPlayer < 380)
+						scrollXPlayer = 380; // vasen "seinä"
+					if (scrollXPlayer > 3000)
+						scrollXPlayer = 3000; // oikea "seinä"
+					// Määrittää rajat joissa tausta liikkuu
+					if(scrollX > 100)
+						scrollX = 100;
+					if (scrollX < -2000)
+						scrollX = -2000;		
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
+		}
+		
 		
 	}
 }

@@ -12,20 +12,20 @@ package
 		
 		var stageRef:Stage;
 		
-		public function Door(stageRef:Stage, X:int, Y:int)
+		public function Door(/*stageRef:Stage, X:int, Y:int*/)
 		{
-			this.stageRef = stageRef;
-			this.x = X;
-			this.y = Y;
+			//this.stageRef = stageRef;
+			//this.x = X;
+			//this.y = Y;
 			
-			addEventListener(MouseEvent.CLICK, clickMyDoor);
-			addEventListener(MouseEvent.MOUSE_OVER, rollOverMyDoor);
-			addEventListener(MouseEvent.MOUSE_OUT, rollOutMyDoor);
+			addEventListener(MouseEvent.CLICK, clickMyDoor);			// Mitä tapahtuu kun hiirtä klikataan (tämän kohdalla)
+			addEventListener(MouseEvent.MOUSE_OVER, rollOverMyDoor);	// Mitä tapahtuu kun hiiri on tämän kohdalla
+			addEventListener(MouseEvent.MOUSE_OUT, rollOutMyDoor);		// Mitä tapahtuu kun hiiri ei ole tämän kohdalla
 		}
 		
 		public function rollOutMyDoor(e:Event = null):void
 		{
-			this.gotoAndStop("unhighlight");
+			this.gotoAndStop("unhighlight");	// Menee movieclipin frameen jonka nimi on unhighlight
 			
 		}
 		
@@ -34,7 +34,7 @@ package
 			this.gotoAndStop("highlight");
 		}
 		
-		public function clickMyDoor(e:Event):void
+		public function clickMyDoor(e:Event = null):void
 		{
 			this.gotoAndStop("open");
 		}
