@@ -64,6 +64,8 @@ package
 				this.gotoAndStop(animationState);
 		}		
 		
+		
+		// Tallentaa tiedon siitä onko näppäin pohjassa vai ei
 		public function checkKeypresses():void
 		{
 			if(key.isDown(37) || key.isDown(65)){ 

@@ -5,7 +5,6 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	
 	public class Background extends MovieClip
@@ -15,17 +14,18 @@ package
 		var leftPressed:Boolean = false;
 		var rightPressed:Boolean = false;
 				
-		var xSpeed:int = 10 //4;
+		var xSpeed:int = 10; //4;
 		var scrollX:int = 0;
 		var scrollXPlayer:int = 186;
-		var speedConstant:int = 10 //5;
+		var speedConstant:int = 10; //5;
 		var friction:Number = 0.95;
-		var maxSpeedConstant:Number = 20 //10;
+		var maxSpeedConstant:Number = 20; //10;
 		
 		var player:Player = new Player(stage, 186, 420);
 		var myDoor:Door = new Door(/*stage, 1440, 258*/);	// Ovien nimet vois olla selkeemmät... eim. kaupanOvi, keittiönOvi jne
 		var myDoor2:Door = new Door(/*stage, 2493, 294*/);
-
+		var myTomaatti:Automaatti = new Automaatti();
+		var myTomaattiTehtava:AutomaattiPeli = new AutomaattiPeli();
 		
 		public function Background()
 		{				
@@ -74,12 +74,12 @@ package
 					// rajat joiden sisällä pelaaja pystyy liikkumaan
 					if(scrollXPlayer < 40)
 						scrollXPlayer = 40; // vasen "seinä"
-					if (scrollXPlayer > 1500)
+					else if (scrollXPlayer > 1500)
 						scrollXPlayer = 1500; // oikea "seinä"
 					// rajat joissa tausta liikkuu
 					if(scrollX > -15)
 						scrollX = -15;
-					if (scrollX < -875)
+					else if (scrollX < -875)
 						scrollX = -875;	
 					break;
 				}
@@ -87,18 +87,36 @@ package
 				{
 					if(scrollXPlayer < 380)
 						scrollXPlayer = 380; 
-					if (scrollXPlayer > 2800)
+					else if (scrollXPlayer > 2800)
 						scrollXPlayer = 2800; 
 					if(scrollX > 0)
 						scrollX = 0;
-					if (scrollX < -2200)
+					else if (scrollX < -2200)
 						scrollX = -2200;	
 					break;
 				}	
+				case "kauppa":
+				{
+					if(scrollXPlayer < 30)
+						scrollXPlayer = 30; 
+					else if (scrollXPlayer > 315)
+						scrollXPlayer = 315; 
+					if(scrollX > 0)
+						scrollX = 0;
+					else if (scrollX < 0)
+						scrollX = 0;	
+					break;
+				}
 				default:
 				{
 					break;
 				}
+			}
+			
+			if(myTomaatti.clicked)
+			{
+				addChild(myTomaattiTehtava);
+
 			}
 		}
 
@@ -141,6 +159,10 @@ package
 					this.gotoAndStop("piha");
 					removeChild(myDoor);
 					addChild(myDoor2);
+					addChild(myTomaatti);
+					this.setChildIndex(player, this.numChildren - 1); // Tällä saadaan pelaaja päällimmäiseksi, muuten se jää myDoor2 ja myTomaatti alapuolelle
+					myTomaatti.x = 2303;
+					myTomaatti.y = 314;
 					myDoor2.x = 2493;
 					myDoor2.y = 294;
 					scrollXPlayer = 368;
@@ -151,6 +173,7 @@ package
 				{
 					this.gotoAndStop("kauppa");
 					removeChild(myDoor2);
+					this.setChildIndex(player, this.numChildren - 1);
 					scrollXPlayer = 200;
 					scrollX = 0;
 					break;
