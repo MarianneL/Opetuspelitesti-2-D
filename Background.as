@@ -25,7 +25,6 @@ package
 		var myDoor:Door = new Door(/*stage, 1440, 258*/);	// Ovien nimet vois olla selkeemmät... eim. kaupanOvi, keittiönOvi jne
 		var myDoor2:Door = new Door(/*stage, 2493, 294*/);
 		var myTomaatti:Automaatti = new Automaatti();
-		var myTomaattiTehtava:AutomaattiPeli = new AutomaattiPeli();
 		
 		public function Background()
 		{				
@@ -112,12 +111,7 @@ package
 					break;
 				}
 			}
-			
-			if(myTomaatti.clicked)
-			{
-				addChild(myTomaattiTehtava);
 
-			}
 		}
 
 		
