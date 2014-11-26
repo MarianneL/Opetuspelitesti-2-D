@@ -17,7 +17,7 @@ package
 				
 		var xSpeed:int = 10 //4;
 		var scrollX:int = 0;
-		var scrollXPlayer:int = 0;
+		var scrollXPlayer:int = 186;
 		var speedConstant:int = 10 //5;
 		var friction:Number = 0.95;
 		var maxSpeedConstant:Number = 20 //10;
@@ -47,8 +47,6 @@ package
 		
 		function loop(e:Event):void
 		{	
-			checkBounds();
-			
 			if(leftPressed) // jos vasen näppäin on pohjassa...
 				xSpeed -= speedConstant; //... tausta liikkuu yhteen suuntaan...
 			else if(rightPressed) //... ja jos oikea näppäin on pohjassa...
@@ -66,7 +64,42 @@ package
 			player.x = scrollXPlayer;
 			
 			if(Math.abs(xSpeed) < 0.5)
-				xSpeed = 0;		
+				xSpeed = 0;	
+			
+			// Tässä määritetään "liikkumisrajat" riippuen millä framella ollaan (framen nimen mukaan)
+			switch(currentFrameLabel)
+			{
+				case "olohuone":
+				{
+					// rajat joiden sisällä pelaaja pystyy liikkumaan
+					if(scrollXPlayer < 40)
+						scrollXPlayer = 40; // vasen "seinä"
+					if (scrollXPlayer > 1500)
+						scrollXPlayer = 1500; // oikea "seinä"
+					// rajat joissa tausta liikkuu
+					if(scrollX > -15)
+						scrollX = -15;
+					if (scrollX < -875)
+						scrollX = -875;	
+					break;
+				}
+				case "piha":
+				{
+					if(scrollXPlayer < 380)
+						scrollXPlayer = 380; 
+					if (scrollXPlayer > 2800)
+						scrollXPlayer = 2800; 
+					if(scrollX > 0)
+						scrollX = 0;
+					if (scrollX < -2200)
+						scrollX = -2200;	
+					break;
+				}	
+				default:
+				{
+					break;
+				}
+			}
 		}
 
 		
@@ -87,7 +120,8 @@ package
 		}
 		
 		
-		public function door1GoTo(e:MouseEvent):void	// Ovesta 1 mennään Background movieclipin kakkos framelle, eli kakkos "kenttään"
+		// Ovesta 1 mennään Background movieclipin kakkos framelle, eli kakkos "kenttään"
+		public function door1GoTo(e:MouseEvent):void	
 		{
 			nextLevel(2);
 		}
@@ -97,25 +131,25 @@ package
 		}
 		
 		
+		// Asetetaan pelaaja ja ovet jne, sen mukaan millä framella ollaan
 		public function nextLevel(currentLevel):void
 		{
 			switch(currentLevel)
 			{
 				case 2:
 				{
-					this.gotoAndStop(2);
-					checkBounds();
+					this.gotoAndStop("piha");
+					removeChild(myDoor);
 					addChild(myDoor2);
 					myDoor2.x = 2493;
 					myDoor2.y = 294;
-					removeChild(myDoor);
 					scrollXPlayer = 368;
 					scrollX = 100;
 					break;
 				}
 				case 3:
 				{
-					this.gotoAndStop(3);
+					this.gotoAndStop("kauppa");
 					removeChild(myDoor2);
 					scrollXPlayer = 200;
 					scrollX = 0;
@@ -126,48 +160,7 @@ package
 					break;
 				}
 			}
-		}
-		
-		
-		public function checkBounds():void
-		{
-			switch(currentLevel)
-			{
-				case 1:
-				{
-					// Tämä määrittää rajat jossa pelaaja voi liikkua
-					if(scrollXPlayer < 40)
-						scrollXPlayer = 40; // vasen "seinä"
-					if (scrollXPlayer > 1500)
-						scrollXPlayer = 1500; // oikea "seinä"
-					// Määrittää rajat joissa tausta liikkuu
-					if(scrollX > -15)
-						scrollX = -15;
-					if (scrollX < -875)
-						scrollX = -875;	
-					break;
-				}
-				case 2:
-				{
-					// Tämä määrittää rajat jossa pelaaja voi liikkua
-					if(scrollXPlayer < 380)
-						scrollXPlayer = 380; // vasen "seinä"
-					if (scrollXPlayer > 3000)
-						scrollXPlayer = 3000; // oikea "seinä"
-					// Määrittää rajat joissa tausta liikkuu
-					if(scrollX > 100)
-						scrollX = 100;
-					if (scrollX < -2000)
-						scrollX = -2000;		
-					break;
-				}
-				default:
-				{
-					break;
-				}
-			}
-		}
-		
+		}	
 		
 	}
 }
