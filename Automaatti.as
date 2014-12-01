@@ -11,13 +11,13 @@ package
 		var player:Player;
 		
 		var stageRef:Stage;
-		var automaattiPeli:AutomaattiPeli = new AutomaattiPeli();
+		var automaattiTeht:AutomaattiTeht;
 		
 		public function Automaatti()
 		{
 			addEventListener(MouseEvent.MOUSE_OVER, rollOver);	// Mitä tapahtuu kun hiiri on tämän kohdalla
 			addEventListener(MouseEvent.MOUSE_OUT, rollOut);	// Mitä tapahtuu kun hiiri ei ole tämän kohdalla
-			addEventListener(MouseEvent.CLICK, goToAutomaattiPeli);	// Mitä tapahtuu kun tätä klikataan
+			addEventListener(MouseEvent.CLICK, goToAutomaattiTeht);	// Mitä tapahtuu kun tätä klikataan
 		}
 		
 		public function rollOut(e:Event = null):void
@@ -31,9 +31,10 @@ package
 			this.gotoAndStop("highlight");
 		}
 		
-		public function goToAutomaattiPeli(e:Event = null):void
+		public function goToAutomaattiTeht(e:Event = null):void
 		{
-			// Aloittaa automaatti tehtävän :P
+			//automaattiTeht  = new AutomaattiTeht(stage);
+			//addChild(automaattiTeht);
 		}
 	}
 }

@@ -22,10 +22,10 @@
     <qtDefaultName>1</qtDefaultName>
     <rnwkDefaultName>1</rnwkDefaultName>
     <swcDefaultName>1</swcDefaultName>
-    <flashFileName>C:\Users\Marianne\Documents\Opetuspelitesti-2-D\bin-debug\Game.swf</flashFileName>
+    <flashFileName>C:\Users\Marianne\Documents\Opetuspelitesti2\bin-debug\Game.swf</flashFileName>
     <projectorWinFileName>Game.exe</projectorWinFileName>
     <projectorMacFileName>Game.app</projectorMacFileName>
-    <htmlFileName>C:\Users\Marianne\Documents\Opetuspelitesti-2-D\bin-debug\Game.html</htmlFileName>
+    <htmlFileName>C:\Users\Marianne\Documents\Opetuspelitesti2\bin-debug\Game.html</htmlFileName>
     <gifFileName>Game.gif</gifFileName>
     <jpegFileName>Game.jpg</jpegFileName>
     <pngFileName>Game.png</pngFileName>
@@ -42,8 +42,8 @@
     <AlternateFilename>Game_alternate.html</AlternateFilename>
     <UsingOwnAlternateFile>0</UsingOwnAlternateFile>
     <OwnAlternateFilename></OwnAlternateFilename>
-    <Width>640</Width>
-    <Height>480</Height>
+    <Width>1000</Width>
+    <Height>1000</Height>
     <Align>0</Align>
     <Units>0</Units>
     <Loop>1</Loop>
@@ -127,8 +127,8 @@
     </LibraryVersions>
   </PublishFlashProperties>
   <PublishJpegProperties enabled="true">
-    <Width>640</Width>
-    <Height>480</Height>
+    <Width>1000</Width>
+    <Height>1000</Height>
     <Progressive>0</Progressive>
     <DPI>4718592</DPI>
     <Size>0</Size>
@@ -153,8 +153,8 @@
     <exportSMIL>1</exportSMIL>
   </PublishRNWKProperties>
   <PublishGifProperties enabled="true">
-    <Width>640</Width>
-    <Height>480</Height>
+    <Width>1000</Width>
+    <Height>1000</Height>
     <Animated>0</Animated>
     <MatchMovieDim>1</MatchMovieDim>
     <Loop>1</Loop>
@@ -172,8 +172,8 @@
     <PaletteName></PaletteName>
   </PublishGifProperties>
   <PublishPNGProperties enabled="true">
-    <Width>640</Width>
-    <Height>480</Height>
+    <Width>1000</Width>
+    <Height>1000</Height>
     <OptimizeColors>1</OptimizeColors>
     <Interlace>0</Interlace>
     <Transparent>0</Transparent>
@@ -189,8 +189,8 @@
     <PaletteName></PaletteName>
   </PublishPNGProperties>
   <PublishQTProperties enabled="true">
-    <Width>640</Width>
-    <Height>480</Height>
+    <Width>1000</Width>
+    <Height>1000</Height>
     <MatchMovieDim>1</MatchMovieDim>
     <UseQTSoundCompression>0</UseQTSoundCompression>
     <AlphaOption></AlphaOption>

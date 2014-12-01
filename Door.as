@@ -18,7 +18,7 @@ package
 			//this.x = X;
 			//this.y = Y;
 			
-			addEventListener(MouseEvent.CLICK, clickMyDoor);			// Mitä tapahtuu kun hiirtä klikataan (tämän kohdalla)
+			//addEventListener(MouseEvent.CLICK, clickMyDoor);			// Mitä tapahtuu kun hiirtä klikataan (tämän kohdalla)
 			addEventListener(MouseEvent.MOUSE_OVER, rollOverMyDoor);	// Mitä tapahtuu kun hiiri on tämän kohdalla
 			addEventListener(MouseEvent.MOUSE_OUT, rollOutMyDoor);		// Mitä tapahtuu kun hiiri ei ole tämän kohdalla
 		}
@@ -36,7 +36,7 @@ package
 		
 		public function clickMyDoor(e:Event = null):void
 		{
-			this.gotoAndStop("open");
+			
 		}
 	}
 }
